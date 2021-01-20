@@ -1,0 +1,48 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id "com.diffplug.spotless" version "5.7.0"
+}
+
+////////////////////////////
+// Configurations Section //
+////////////////////////////
+group = "com.justinyan"
+version = "0.1"
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+// Formatting linter
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
+//////////////////////////
+// Dependencies Section //
+//////////////////////////
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "io.vavr:vavr:0.10.3"
+    implementation "com.slack.api:bolt:1.5.0"
+    implementation "com.slack.api:bolt-servlet:1.5.0"
+    implementation "com.slack.api:bolt-jetty:1.5.0"
+    implementation "com.slack.api:bolt-aws-lambda:1.5.0"
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.11.935'
+    implementation "org.slf4j:slf4j-simple:1.7.30"
+}
+
+///////////////////
+// Tasks Section //
+///////////////////
+assemble.dependsOn(shadowJar)
+
+jar {
+    enabled false
+}
